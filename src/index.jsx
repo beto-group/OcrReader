@@ -1,6 +1,12 @@
 // index.jsx
-async function View({ folderPath, dc }) {
+async function View({ folderPath: initialFolderPath, dc }) {
   const { useState, useEffect } = dc;
+  
+  const currentFilePath = dc.useCurrentPath();
+  const folderPath = currentFilePath 
+    ? currentFilePath.substring(0, currentFilePath.lastIndexOf("/")) 
+    : (initialFolderPath || "_RESOURCES/DATACORE/_DONE/OcrReader");
+
   const { App } = await dc.require(folderPath + "/src/App.jsx");
 
   function RootView() {
